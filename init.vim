@@ -1,3 +1,4 @@
+set encoding=utf-8
 set relativenumber
 set nu
 set cursorline
@@ -6,6 +7,8 @@ set smarttab
 set cindent
 set tabstop=2
 set shiftwidth=2
+set showcmd
+set showmatch
 " always uses spaces instead of tab characters
 set expandtab
 set smartindent
@@ -40,14 +43,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tweekmonster/gofmt.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'tsony-tsonev/nerdtree-git-plugin'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
-"Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
-Plug 'scrooloose/nerdcommenter'
+Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'prettier/vim-prettier' ", { 'do': 'yarn install' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
@@ -66,54 +64,101 @@ Plug 'luochen1990/rainbow'
 Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
+Plug 'terryma/vim-multiple-cursors'
 
+" Nerd Tree
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
+"Plug 'tsony-tsonev/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" VIM theme and syntax highlight
 Plug 'colepeters/spacemacs-theme.vim'
 "Plug 'morhetz/gruvbox'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
+Plug 'norcalli/nvim-colorizer.lua'
 
 
 " Initialize plugin system
 call plug#end()
-
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+lua require'colorizer'.setup()
 if executable('rg')
   let g:rg_derive_root='ture'
 endif
-
+let g:airline_theme = 'molokai'
 let mapleader=" "
 
 let g:fzf_layout = {'window':{'width': 0.8, 'height': 0.8}}
 let $FZF_DEFAULT_OPTS='--reverse'
 
 inoremap jk <ESC>
-nmap <C-n> :NERDTreeToggle<CR>
+"nmap <C-n> :NERDTreeToggle<CR>
+nnoremap <leader><C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
 " open NERDTree automatically
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree
 
+let g:NERDTreeGitStatusConcealBrackets = 1
 let g:NERDTreeGitStatusWithFlags = 1
-"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"let g:NERDTreeGitStatusNodeColorization = 1
-"let g:NERDTreeColorMapCustom = {
-    "\ "Staged"    : "#0ee375",  
-    "\ "Modified"  : "#d9bf91",  
-    "\ "Renamed"   : "#51C9FC",  
-    "\ "Untracked" : "#FCE77C",  
-    "\ "Unmerged"  : "#FC51E6",  
-    "\ "Dirty"     : "#FFBD61",  
-    "\ "Clean"     : "#87939A",   
-    "\ "Ignored"   : "#808080"   
-    "\ }                         
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : "#d9bf91",
+    \ "Staged"    : "#0ee375",
+    \ "Untracked" : "#FCE77C",
+    \ "Renamed"   : "#51C9FC",
+    \ "Unmerged"  : "#FC51E6",
+    \ 'Deleted'   : "#EE1111",
+    \ "Dirty"     : "#FFBD61",
+    \ "Ignored"   : "#808080",
+    \ "Clean"     : "#87939A",
+    \ "Unknown"   : "#AA5511"
+    \ }                         
 
+"let g:NERDTreeGitStatusIndicatorMapCustom = {
+"                \ 'Modified'  :'✹',
+"                \ 'Staged'    :'✚',
+"                \ 'Untracked' :'✭',
+"                \ 'Renamed'   :'➜',
+"                \ 'Unmerged'  :'═',
+"                \ 'Deleted'   :'✖',
+"                \ 'Dirty'     :'✗',
+"                \ 'Ignored'   :'☒',
+"                \ 'Clean'     :'✔︎',
+"                \ 'Unknown'   :'?',
+"                \ }
 
 let g:NERDTreeIgnore = ['^node_modules$']
+
+
+" sync open file with NERDTree
+" " Check if NERDTree is open or active
+function! IsNERDTreeOpen()        
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
 
 " vim-prettier
 let g:prettier#quickfix_enabled = 0
@@ -122,12 +167,12 @@ let g:prettier#quickfix_auto_focus = 0
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " run prettier on save
 "let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 
 " ctrlp
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-"let g:ctrlp_user_caching = 0
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_user_caching = 0
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
@@ -147,26 +192,7 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 let g:UltiSnipsEditSplit="vertical"
-
-" sync open file with NERDTree
-" " Check if NERDTree is open or active
-function! IsNERDTreeOpen()        
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
-
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
-
-" Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
 
 " coc config
 let g:coc_global_extensions = [
