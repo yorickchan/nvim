@@ -63,6 +63,9 @@ Plug 'junegunn/fzf.vim'
 "Plug 'theprimeagen/vim-apm'
 Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'luochen1990/rainbow'
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
 
 
 Plug 'colepeters/spacemacs-theme.vim'
@@ -140,6 +143,12 @@ colorscheme gruvbox
 set background=dark
 
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:UltiSnipsEditSplit="vertical"
 
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
