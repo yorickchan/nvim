@@ -62,6 +62,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "Plug 'theprimeagen/vim-apm'
 Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
+Plug 'luochen1990/rainbow'
 
 
 Plug 'colepeters/spacemacs-theme.vim'
@@ -137,6 +138,8 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 colorscheme gruvbox
 set background=dark
+
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
