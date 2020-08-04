@@ -88,6 +88,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " Initialize plugin system
 call plug#end()
+
+filetype plugin on
+
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 lua require'colorizer'.setup()
 if executable('rg')
@@ -102,9 +105,12 @@ let $FZF_DEFAULT_OPTS='--reverse'
 inoremap jk <ESC>
 "nmap <C-n> :NERDTreeToggle<CR>
 nnoremap <leader><C-n> :NERDTreeToggle<CR>
-vmap ++ <plug>NERDCommenterToggle
-nmap ++ <plug>NERDCommenterToggle
+"vmap ++ <plug>NERDCommenterToggle
+"nmap ++ <plug>NERDCommenterToggle
+nmap <C-_>   <Plug>NERDCommenterToggle
+vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
+"
 " open NERDTree automatically
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree
@@ -202,6 +208,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-python', 
   \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
