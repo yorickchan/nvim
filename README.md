@@ -11,12 +11,22 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 ## Install Plugins
 
-get into nvim
-run :PlugInstall
+Commands:
 
-## Update Config
+```
+:PlugInstall
+```
+
+## Install COC plugins
+
+Commands:
+
+```
+:CocInstall
+```
+
+## Change Config
 
 ```
 nvim ~/.config/nvim/init.vim
 ```
-
