@@ -30,3 +30,11 @@ Commands:
 ```
 nvim ~/.config/nvim/init.vim
 ```
+
+## Requirements
+
+deoplete requires Neovim or Vim8 with if_python3.
+
+```
+pip3 install --user pynvim
+```

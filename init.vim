@@ -41,6 +41,14 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tweekmonster/gofmt.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -94,6 +102,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 call plug#end()
 
 filetype plugin on
+
+let g:deoplete#enable_at_startup = 1
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 lua require'colorizer'.setup()
