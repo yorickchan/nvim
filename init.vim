@@ -4,6 +4,7 @@ if !exists('g:vscode')
   set nu
   set cursorline
   set mouse=a
+  set clipboard=unnamed
   set smarttab
   set cindent
   set tabstop=2
@@ -46,6 +47,7 @@ if !exists('g:vscode')
   Plug 'tweekmonster/gofmt.vim'
   Plug 'ryanoasis/vim-devicons'
   Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-fugitive'
   Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
   Plug 'prettier/vim-prettier' ", { 'do': 'yarn install' }
   Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
