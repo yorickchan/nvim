@@ -31,10 +31,14 @@ Commands:
 nvim ~/.config/nvim/init.vim
 ```
 
-## Requirements
+## Neo Vim for VSCode
 
-deoplete requires Neovim or Vim8 with if_python3.
+https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim
 
-```
-pip3 install --user pynvim
-```
+### Installation
+
+- Install [vscode-neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) extension
+- Install [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) Required version 0.4.2 or greater
+- If you already have big & custom init.vim i'd recommend to wrap existing settings & plugins with if !exists('g:vscode') check to prevent potential breakings and problems
+
+Neovim 0.4+ is required. Any version lower than that won't work. Many linux distributions have an old version of neovim in their package repo - always check what version are you installing.
