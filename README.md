@@ -2,6 +2,12 @@
 
 git clone in to ~/.config/
 
+install python3 client and plugin host for NeoVim
+
+```
+pip3 install --user pynvim
+```
+
 ## Install VIM-Plug
 
 ```
