@@ -152,7 +152,7 @@ if !exists('g:vscode')
   "                \ 'Unknown'   :'?',
   "                \ }
   
-  let g:NERDTreeIgnore = ['^node_modules$']
+  let g:NERDTreeIgnore = ['^node_modules$', '.git$']
   
   
   " sync open file with NERDTree
@@ -330,7 +330,7 @@ if !exists('g:vscode')
   " Resume latest coc list
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
   
-  
+    
   " Some of these key choices were arbitrary;
   " it's just an example.
   nnoremap <leader>fa :FlutterRun<cr>
@@ -342,4 +342,7 @@ if !exists('g:vscode')
   nnoremap <leader>u :UndotreeShow<CR>
   nnoremap <leader><C-p> :GFiles<CR>
   nnoremap <leader>pf :Files<CR>
-endif 
+
+  nnoremap <leader>gs :G<CR>
+endif
+
