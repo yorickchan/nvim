@@ -15,6 +15,7 @@ lvim.colorscheme = "monokaipro"
 lvim.transparent_window = true
 lvim.builtin.treesitter.rainbow.enable = true
 vim.opt.relativenumber = true
+lvim.lsp.vue = { "eslint", "stylelint_lsp", "tailwindcss", "volar", "vuels" }
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -47,7 +48,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- }
 
 -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
 --   r = { "<cmd>Trouble lsp_references<cr>", "References" },
@@ -57,6 +58,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 -- }
+lvim.builtin.which_key.mappings["t"] = { "<cmd>Telescope live_grep<CR>", "Search Text" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -81,11 +83,16 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "vue"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
-
+lvim.builtin.telescope.on_config_done = function(telescope)
+  pcall(telescope.load_extension, "frecency")
+  pcall(telescope.load_extension, "neoclip")
+  -- any other extensions loading
+end
 -- generic LSP settings
 
 -- ---@usage disable automatic installation of servers
@@ -197,6 +204,7 @@ lvim.plugins = {
       })
     end,
   },
+  { "github/copilot.vim" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
