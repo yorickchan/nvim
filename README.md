@@ -8,6 +8,12 @@ install python3 client and plugin host for NeoVim
 pip3 install --user pynvim
 ```
 
+install [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) is required
+```
+$ brew install ripgrep
+```
+
+
 ## Install VIM-Plug
 
 #### vim
