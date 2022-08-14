@@ -15,6 +15,8 @@ lvim.colorscheme = "monokaipro"
 lvim.transparent_window = true
 lvim.builtin.treesitter.rainbow.enable = true
 vim.opt.relativenumber = true
+local opts = {}
+require("lvim.lsp.manager").setup("tailwindcss", opts)
 lvim.lsp.vue = { "eslint", "stylelint_lsp", "tailwindcss", "volar", "vuels" }
 
 -- to disable icons and use a minimalist setup, uncomment the following
