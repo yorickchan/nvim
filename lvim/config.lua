@@ -206,7 +206,8 @@ lvim.plugins = {
       })
     end,
   },
-  { "github/copilot.vim" }
+  { "github/copilot.vim" },
+  { "wuelnerdotexe/vim-astro" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
