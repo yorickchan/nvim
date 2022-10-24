@@ -25,6 +25,7 @@ lvim.lsp.vue = { "eslint", "stylelint_lsp", "tailwindcss", "volar", "vuels" }
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-t>"] = ":ToggleTerm<cr>"
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -179,6 +180,7 @@ lvim.builtin.treesitter.highlight.enable = true
 --     },
 -- }
 lvim.plugins = {
+  { "akinsho/toggleterm.nvim" },
   { "yaegassy/coc-volar" },
   { "yaegassy/coc-volar-tools" },
   { "tanvirtin/monokai.nvim" },
