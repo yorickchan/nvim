@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "monokaipro"
+lvim.colorscheme = "monokai_pro"
 lvim.transparent_window = true
 lvim.builtin.treesitter.rainbow.enable = true
 vim.opt.relativenumber = true
@@ -196,7 +196,6 @@ lvim.plugins = {
       vim.cmd("let g:rainbow_active = 1")
     end
   },
-  { 'https://gitlab.com/__tpb/monokai-pro.nvim' },
   {
     "sindrets/diffview.nvim",
     event = "BufRead",
