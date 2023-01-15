@@ -11,13 +11,31 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "monokai_pro"
+lvim.colorscheme = "monokai"
 lvim.transparent_window = true
 lvim.builtin.treesitter.rainbow.enable = true
 vim.opt.relativenumber = true
-local opts = {}
+local tw_highlight = require('tailwind-highlight')
+local opts = {
+  on_attach = function(client, bufnr)
+    -- rest of you config
+    tw_highlight.setup(client, bufnr, {
+      single_column = false,
+      mode = 'background',
+      debounce = 200,
+    })
+  end
+}
 require("lvim.lsp.manager").setup("tailwindcss", opts)
-lvim.lsp.vue = { "eslint", "stylelint_lsp", "tailwindcss", "volar", "vuels" }
+-- lvim.lsp.vue = { "eslint", "stylelint_lsp", "tailwindcss", "volar", "vuels", "prettier" }
+
+-- require("lvim.lsp.manager").setup("vuels", {
+--   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
+-- })
+
+
+
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -115,7 +133,9 @@ lvim.builtin.treesitter.highlight.enable = true
 -- }
 
 -- ---@usage disable automatic installation of servers
--- lvim.lsp.installer.setup.automatic_installation = false
+lvim.lsp.installer.setup.automatic_installation = true
+-- lvim.lsp.automatic_servers_installation = true
+
 
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
@@ -174,32 +194,12 @@ lvim.builtin.treesitter.highlight.enable = true
 -- }
 
 -- Additional Plugins
--- lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
 lvim.plugins = {
-  { "akinsho/toggleterm.nvim" },
+  { "tanvirtin/monokai.nvim" },
   { "yaegassy/coc-volar" },
   { "yaegassy/coc-volar-tools" },
-  { "tanvirtin/monokai.nvim" },
+  { "williamboman/nvim-lsp-installer" },
   { "princejoogie/tailwind-highlight.nvim" },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  { "luochen1990/rainbow",
-    cmd = "RainbowToggle",
-    config = function()
-      vim.cmd("let g:rainbow_active = 1")
-    end
-  },
-  {
-    "sindrets/diffview.nvim",
-    event = "BufRead",
-  },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
@@ -215,21 +215,8 @@ lvim.plugins = {
     end,
   },
   { "p00f/nvim-ts-rainbow" },
-  {
-    "ethanholz/nvim-lastplace",
-    event = "BufRead",
-    config = function()
-      require("nvim-lastplace").setup({
-        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-        lastplace_ignore_filetype = {
-          "gitcommit", "gitrebase", "svn", "hgcommit",
-        },
-        lastplace_open_folds = true,
-      })
-    end,
-  },
+  { 'wuelnerdotexe/vim-astro' },
   { "github/copilot.vim" },
-  { "wuelnerdotexe/vim-astro" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
